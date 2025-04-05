@@ -11,17 +11,6 @@ import threading
 import time
 import sys
 
-# Loading animation (runs in its own thread)
-def loading_animation(stop_event):
-    chars = "|/-\\"
-    i = 0
-    while not stop_event.is_set():
-        sys.stdout.write(f"\r⚙️  Changing MAC address... {chars[i % len(chars)]}")
-        sys.stdout.flush()
-        time.sleep(0.1)
-        i += 1
-    sys.stdout.write("\r✅ MAC address change complete!            \n")
-    sys.stdout.flush()
                      
 # creates a function that implements arguments into the program, ie. "python mac.py -i wlan0 -m 00:11:22:33:44:55", lets -i be used for interface, and -m for mac address.
 def getargs():
@@ -77,15 +66,9 @@ print ("🔷 Current MAC address is: " + str(currentmac) + "\n")
 intr = options.interface
 adr  = options.address
 
-# Start animation in a separate thread
-stop_event = threading.Event()
-animation_thread = threading.Thread(target=loading_animation, args=(stop_event,))
-animation_thread.start()
 # just calls the block of code that actually changes the mac, and accepts interface and mac as inputs.
 changemac(intr, adr)
 
-done = True
-loader_thread.join()
 
 # gets the current address again, and confirms that it has been changed. or not if the condition wasnt met.
 currentmac = getcurrentmac(options.interface)
