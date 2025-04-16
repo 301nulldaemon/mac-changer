@@ -21,7 +21,7 @@ cd mac-changer/code
 
 python mac.py -i [interface] -m [mac_address]
 
-**For the MAC, make sure it is _6 bytes long,_ and starts with 00.**
+// For the MAC, make sure it is 6 bytes long, and starts with 00.
 
 ```
 ### EXAMPLE CLI USAGE
